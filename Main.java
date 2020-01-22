@@ -56,10 +56,10 @@ public class Main {
                     radio.avanzar();
                     break;
                 case 3:
-                    radio.guardar(selectButton(view, radio));
+                    radio.guardar(selectButton(view, radio, buttons));
                     break;
                 case 4:
-                    radio.seleccionarEmisora(selectButton(view, radio));
+                    radio.seleccionarEmisora(selectButton(view, radio, buttons));
                     break;
                 case 5:
                     if (radio.estado()) radio.onOff();
