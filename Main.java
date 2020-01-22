@@ -33,10 +33,15 @@ public class Main {
             add("Apagar Radio");
             add("Salir");
         }};
-	    init(mainMenu, radio, view);
+         ArrayList<RadioButton> buttons  = new ArrayList<>(){{
+            for (int i = 0; i < 12; i++) {
+                add(new RadioButton());
+            }
+        }};
+	    init(mainMenu, radio, view, buttons);
     }
 
-    public static void init(ArrayList<String> mainMenu, Radio radio, View view){
+    public static void init(ArrayList<String> mainMenu, Radio radio, View view, ArrayList<RadioButton> buttons){
         boolean isRunningApp = true;
         while (isRunningApp){
             int c = mainMenu.indexOf(mainMenu(mainMenu, radio, view));
@@ -88,7 +93,7 @@ public class Main {
      *
      * @return el numero que de boton donde el usuario quiere escuchar la emisora guarddda
      */
-    public static int selectButton(View view, Radio radio){
-        return view.selectOptions(radio.buttons, "Escoja el numero de boton.", "Escoja una opcion valida");
+    public static int selectButton(View view, Radio radio, ArrayList<RadioButton> buttons){
+        return view.selectOptions(buttons, "Escoja el numero de boton.", "Escoja una opcion valida");
     }
 }

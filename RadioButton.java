@@ -46,8 +46,7 @@ class RadioButton{
     public String toString() {
         DecimalFormat df = new DecimalFormat("#.##");
         double stationC = Double.parseDouble(df.format(this.station));
-        return "Boton: " + (this.type != null ? this.type.getType() : "no seteado") + "\nEstacion: "
-                + (this.station != 0.0 ? String.valueOf(stationC) : "sin estacion seteada");
+        return "Boton";
     }
 
     public boolean isValid(){
