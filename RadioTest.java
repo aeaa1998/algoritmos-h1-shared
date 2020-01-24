@@ -25,22 +25,14 @@ public class RadioTest {
 
 
 
-    @Test
-    public void cambiarFrecuencia() {
-        Radio radioTest = new Radio();
-        assertEquals(AM.class, radioTest.getFrequency().getClass());
-        radioTest.cambiarFrecuencia("FM");
-        assertEquals(FM.class, radioTest.getFrequency().getClass());
-    }
 
     @Test
     public void avanzar() {
         Radio radioTest = new Radio();
-        AM am = new AM();
-        assertEquals(am.getCurrentStation(), radioTest.getFrequency().getCurrentStation(), 0.0);
-        assertEquals(530, radioTest.getFrequency().getCurrentStation(), 0.0);
+
+        assertEquals("Estacion  actual 530.0 radio AM", radioTest.estacionActual());
         radioTest.avanzar();
-        assertEquals(540, radioTest.getFrequency().getCurrentStation(), 0.0);
+        assertEquals("Estacion  actual 540.0 radio AM", radioTest.estacionActual());
 
     }
 

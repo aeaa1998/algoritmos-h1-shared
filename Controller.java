@@ -5,12 +5,15 @@
 
 
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class Controller {
     private boolean isRunningApp = true;
     private Radio radio = new Radio();
-    private View view = new View();
+    private Scanner scanner = new Scanner(System.in);
 
     private ArrayList<String> mainMenu = new ArrayList<String>() {{
         add("Encender Radio");
@@ -39,10 +42,10 @@ public class Controller {
                     radio.avanzar();
                     break;
                 case 3:
-                    radio.guardar(radio.selectButton());
+                    radio.guardar(selectButton());
                     break;
                 case 4:
-                    radio.seleccionarEmisora(radio.selectButton());
+                    radio.seleccionarEmisora(selectButton());
                     break;
                 case 5:
                     if (radio.estado()) radio.onOff();
@@ -67,10 +70,59 @@ public class Controller {
                 if (index == 0 || index == (mainMenu.size() - 1)) menuToShow.add(menuItem);
             }
         });
-        int i =  this.view.selectOptions(menuToShow,
+        int i =  selectOptions(menuToShow,
                 "Escoja un numero de opcion valido. (Las opciones variaran dependiendo del estado de la radio)",
                 "Escoja una opcion valida");
         return menuToShow.get(i);
+    }
+
+    private int selectButton(){
+        ArrayList<Integer> buttonInts = new ArrayList<Integer>(
+                Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12));
+        return selectOptions(buttonInts, "Escoje un boton", "Escoje un boton valido");
+
+
+    }
+
+    private int selectOptions(ArrayList<?> arrayList, String text, String text2){
+        int input = 0;
+        while (input < 1 || input > arrayList.size()){
+            for (int i = 0; i < arrayList.size(); i++) {
+                if (arrayList.get(i).getClass().equals(Double.class) || arrayList.get(i).getClass().equals(Integer.class)){
+                    DecimalFormat df = new DecimalFormat("#.##");
+                    double station = Double.parseDouble(df.format(arrayList.get(i)));
+                    System.out.println((i+1) + ") " + station + "\n");
+                }else{
+                    System.out.println((i+1) + ") " + arrayList.get(i).toString() + "\n");
+                }
+            }
+            input = this.intInput(text, text2, 0);
+            if (input < 1 || input > arrayList.size()){
+                System.out.println("Ingrese una opcion valida\n");
+            }
+        }
+        return input - 1;
+    }
+
+    private int intInput(String text, String text2, int minimum){
+        boolean valid = true;
+        int value = 0;
+        while (valid)
+        {
+            System.out.println(text);
+            String valueString = scanner.nextLine();
+            try{
+                value = Integer.parseInt(valueString);
+                valid = value <= 0 || value < minimum;
+                if (valid) {
+                    System.out.println(text2);
+                }
+            }
+            catch (Exception e) {
+                System.out.println("Ingrese un valor integer");
+            }
+        }
+        return value;
     }
 
 }
